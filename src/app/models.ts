@@ -23,3 +23,28 @@ export class Book {
     }
 }
 
+export class Position {
+    page: number;
+    constructor(page: number) {
+        this.page = page;
+    }
+}
+export class Segment {
+    start: Date;
+    end: Date;
+    start_position: Position;
+    end_position: Position;
+
+    constructor(start: Date, start_position: Position) {
+        this.start = start;
+        this.start_position = start_position;
+    }
+}
+export class Session {
+    book: String;
+    segments: Segment[] = [];
+
+    constructor(book_id: String) {
+        this.book = book_id; 
+    }
+}

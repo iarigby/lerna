@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BookSearchComponent } from './book-search/book-search.component';
 import { HttpClientModule } from '@angular/common/http';
+import { StudySessionComponent } from './study-session/study-session.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookSearchComponent
+    BookSearchComponent,
+    StudySessionComponent
   ],
   imports: [
     BrowserModule,
