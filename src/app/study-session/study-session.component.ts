@@ -12,7 +12,10 @@ export class StudySessionComponent implements OnInit {
 
   book: Book;
   session: Session;
+  total_time: Date;
   duration: Date;
+  breaks_count: number;
+  breaks_duration: Date;
 
   ngOnInit() {
   }
@@ -41,10 +44,22 @@ export class StudySessionComponent implements OnInit {
     // for segments just write time, start page, end page
   }
 
+  refresh() {
+    this.calculate_duration();
+    if(this.session.segments.length > 1) {
+      this.calculate_breaks();
+    }
+  }
+  calculate_breaks() {
+    this.breaks_count = this.session.segments.length;
+    const diff = this.session.segments[1].end.getTime() - this.session.segments[this.session.segments.length - 1].start.getTime();
+    this.total_time = new Date(diff)
+    this.breaks_duration = new Date(this.total_time.getTime() - this.duration.getTime())
+  }
   calculate_duration() {
     const difference = this.session.segments.map(seg => {
       return (seg.end || new Date()).getTime() - seg.start.getTime()
-    }).reduce((a,b) => a+b) // because .sum is too much to ask from a language
+    }).reduce((a, b) => a + b) // because .sum is too much to ask from a language
     // TODO for some reason the initial difference is 1 hour
     this.duration = new Date(difference)
   }

@@ -1,21 +1,31 @@
 <div>
-  <div>
-    <div>start page: </div>
-    <!-- <input></input> -->
-    <button (click)="start_session(54)">start</button>
+  <div *ngIf="!session">
+    <div>
+      <div>start page: </div>
+      <!-- <input></input> -->
+      <button (click)="start_session(54)">start</button>
+    </div>
   </div>
   <!-- button available if book has another session with finished page -->
   <button *ngIf="false" (click)="start_session(____)">continue from page </button>
   <div *ngIf="session">
     <div> started: {{session.segments[0].start}} </div>
-    <div> duration:
+    <div> study time:
       <!-- TODO "duration:" needs to be removed or replaced (example, you've been studying for:) -->
       <!-- TODO why is it 1 hour when it starts? -->
-      <div *ngIf="duration.getHours() - 1"> {{duration.getHours()}} hours </div>
-      <div *ngIf="duration.getMinutes()"> {{duration.getMinutes()}} minutes </div>
-      <div *ngIf="duration.getSeconds()"> {{duration.getSeconds()}} seconds </div>
+      <span *ngIf="duration.getHours() - 1"> {{duration.getHours()}} hours </span>
+      <span *ngIf="duration.getMinutes()"> {{duration.getMinutes()}} minutes </span>
+      <span *ngIf="duration.getSeconds()"> {{duration.getSeconds()}} seconds </span>
       <!--TODO find efficient way to automatically refresh and display-->
     </div>
+    <div *ngIf="breaks_count">
+       breaks: {{breaks_count}} for {{breaks_duration.getMinutes()}}
+    </div>
+    <div>
+      <button *ngIf="!this.session.segments[0].end" (click)="pause_session()">pause</button>
+      <button *ngIf="this.session.segments[0].end" (click)="resume_session()">resume</button>
+    </div>
+    
     <!-- 
       pause and skip
         skip:
@@ -23,7 +33,10 @@
           breaks less then a minute will be ignored
           for this purpose (or have some other way of differenciating
           breaks and skips)
+          when skip starts, start page and end page are 'partially'
+          skipped (so in stats it will count as half) 
+          and the other ones are completely skipped
      -->
-    <button (click)="calculate_duration()">refresh duration</button>
+    <button (click)="refresh()">refresh duration</button>
   </div>
 </div>
