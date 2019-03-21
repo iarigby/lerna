@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { BookSearchComponent } from './book-search/book-search.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StudySessionComponent } from './study-session/study-session.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookSearchComponent,
-    StudySessionComponent
+    StudySessionComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

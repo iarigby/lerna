@@ -19,7 +19,7 @@
       <!--TODO find efficient way to automatically refresh and display-->
     </div>
     <div *ngIf="breaks_count">
-       breaks: {{breaks_count}} for {{breaks_duration.getMinutes()}}
+       breaks: {{breaks_count}} for {{breaks_duration.getSeconds()}}
     </div>
     <div>
       <button *ngIf="!this.session.segments[0].end" (click)="pause_session()">pause</button>
@@ -38,5 +38,10 @@
           and the other ones are completely skipped
      -->
     <button (click)="refresh()">refresh duration</button>
+    <button (click)="finishSession()">finish session</button>
+    <div>
+      current position: {{this.session.segments[0].end_position.type}} {{this.session.segments[0].end_position.index}}
+      <button (click)="increasePosition()">+</button>
+    </div>
   </div>
 </div>

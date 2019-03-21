@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Session, Position, Segment, Book } from '../models';
+import { Session, Position, Segment, Book, Resource } from '../models';
 
 @Component({
   selector: 'app-study-session',
@@ -16,12 +16,13 @@ export class StudySessionComponent implements OnInit {
   duration: Date;
   breaks_count: number;
   breaks_duration: Date;
-
+  resource: Resource;
   ngOnInit() {
   }
 
   start_session(page: number) {
     this.session = new Session('somebook');
+    this.resource = new Resource(this.book);
     this.create_segment(new Position(page));
     this.duration = new Date(0);
   }
@@ -32,6 +33,7 @@ export class StudySessionComponent implements OnInit {
   }
 
   resume_session() {
+    this.calculate_breaks()
     this.create_segment(this.session.segments[0].end_position)
   }
 
@@ -45,14 +47,16 @@ export class StudySessionComponent implements OnInit {
   }
 
   refresh() {
-    this.calculate_duration();
-    if(this.session.segments.length > 1) {
+    if (this.isStudying()) {
+      this.calculate_duration();
+    } else {
       this.calculate_breaks();
     }
+
   }
   calculate_breaks() {
     this.breaks_count = this.session.segments.length;
-    const diff = this.session.segments[1].end.getTime() - this.session.segments[this.session.segments.length - 1].start.getTime();
+    const diff = (this.session.segments[0].end || new Date()).getTime() - this.session.segments[this.session.segments.length - 1].start.getTime();
     this.total_time = new Date(diff)
     this.breaks_duration = new Date(this.total_time.getTime() - this.duration.getTime())
   }
@@ -62,5 +66,22 @@ export class StudySessionComponent implements OnInit {
     }).reduce((a, b) => a + b) // because .sum is too much to ask from a language
     // TODO for some reason the initial difference is 1 hour
     this.duration = new Date(difference)
+  }
+
+  isStudying() {
+    return this.session.segments[0].end == null;
+  }
+
+  finishSession() {
+    if (this.isStudying()) {
+      this.pause_session()
+    }
+    this.resource.sessions.push(this.session)
+    this.session = null;
+    console.log(this.resource.sessions)
+  }
+
+  increasePosition() {
+    this.session.segments[0].end_position.index++;
   }
 }
