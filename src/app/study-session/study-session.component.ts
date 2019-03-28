@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Session, Position, Segment, Book, Resource } from '../models';
+import { book1 } from '../models.samples';
 
 @Component({
   selector: 'app-study-session',
@@ -10,7 +11,6 @@ export class StudySessionComponent implements OnInit {
 
   constructor() { }
 
-  book: Book;
   session: Session;
   total_time: Date;
   duration: Date;
@@ -22,7 +22,7 @@ export class StudySessionComponent implements OnInit {
 
   start_session(page: number) {
     this.session = new Session('somebook');
-    this.resource = new Resource(this.book);
+    this.resource = new Resource(book1);
     this.create_segment(new Position(page));
     this.duration = new Date(0);
   }

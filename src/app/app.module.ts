@@ -4,9 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BookSearchComponent } from './book-search/book-search.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import { StudySessionComponent } from './study-session/study-session.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {MaterialModule} from '../material-module'
 
 @NgModule({
   declarations: [
@@ -18,7 +19,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule
+  ],
+  exports: [
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

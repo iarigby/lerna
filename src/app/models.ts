@@ -1,8 +1,9 @@
 
 export class Item {
+    id: String;
     title: String;
     type: String;
-    constructor(title: String, type: String) {
+    constructor(id: String, title: String, type: String) {
         this.title = title;
         this.type = type;
     }
@@ -17,13 +18,15 @@ export class Book extends Item {
 
     // thumbnail
 
-    constructor(title: String,
+    constructor(
+        id: String,
+        title: String,
         subtitle: String,
         authors: String,
         pageCount: String,
         publishedDate: String,
         selfLink: String) {
-        super(title, 'book');
+        super(id, title, 'book');
         this.subtitle = subtitle;
         this.authors = authors;
         this.pageCount = pageCount;
@@ -66,14 +69,16 @@ export class Resource {
     sessions: Session[];
     
     constructor(item: Item) {
+        this.item = item;
         this.sessions = [];
     }
 }
 
-export class User {
-    name: string;
-}
-
 export class Library {
     resources: Resource[];
+}
+
+export class User {
+    name: string;
+    library: Library;
 }

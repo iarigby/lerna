@@ -3,11 +3,13 @@
     <div>
       <div>start page: </div>
       <!-- <input></input> -->
-      <button (click)="start_session(54)">start</button>
+      <mat-form-field>
+        <input matInput #page type="number"/>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="start_session(page.value)">start</button>
     </div>
   </div>
   <!-- button available if book has another session with finished page -->
-  <button *ngIf="false" (click)="start_session(____)">continue from page </button>
   <div *ngIf="session">
     <div> started: {{session.segments[0].start}} </div>
     <div> study time:
@@ -22,8 +24,8 @@
        breaks: {{breaks_count}} for {{breaks_duration.getSeconds()}}
     </div>
     <div>
-      <button *ngIf="!this.session.segments[0].end" (click)="pause_session()">pause</button>
-      <button *ngIf="this.session.segments[0].end" (click)="resume_session()">resume</button>
+      <button mat-raised-button color="primary" *ngIf="!this.session.segments[0].end" (click)="pause_session()">pause</button>
+      <button mat-raised-button color="primary" *ngIf="this.session.segments[0].end" (click)="resume_session()">resume</button>
     </div>
     
     <!-- 
@@ -37,11 +39,11 @@
           skipped (so in stats it will count as half) 
           and the other ones are completely skipped
      -->
-    <button (click)="refresh()">refresh duration</button>
-    <button (click)="finishSession()">finish session</button>
+    <button mat-raised-button color="primary" (click)="refresh()">refresh duration</button>
+    <button mat-raised-button color="primary" (click)="finishSession()">finish session</button>
     <div>
       current position: {{this.session.segments[0].end_position.type}} {{this.session.segments[0].end_position.index}}
-      <button (click)="increasePosition()">+</button>
+      <button mat-raised-button color="primary" (click)="increasePosition()">+</button>
     </div>
   </div>
 </div>

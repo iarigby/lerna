@@ -37,6 +37,7 @@ export class BookSearchComponent implements OnInit {
       this.search_results = items.items.map(item => {
         // console.log(item)
         return new Book(
+          "003",
           item.volumeInfo.title,
           item.volumeInfo.subtitle,
           item.volumeInfo.authors.join(','),

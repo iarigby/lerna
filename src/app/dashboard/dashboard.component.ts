@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Library, User } from '../models';
+import { library } from '../models.samples'
 
 @Component({
   selector: 'app-dashboard',
@@ -8,19 +9,19 @@ import { Library, User } from '../models';
 })
 export class DashboardComponent implements OnInit {
 
-  @Input() user: User;
-  library: Library;
+  @Input() user: User = {
+    name: "ia",
+    library: library
+  };
 
   constructor() { 
-    this.getLibrary()
    }
 
   ngOnInit() {
-
   }
 
-  getLibrary() {
-    this.library = new Library();
-  }
 
+  startStudying() {
+
+  }
 }

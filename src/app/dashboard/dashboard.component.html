@@ -1,8 +1,11 @@
-<div *ngFor="let resoure of library.resources">
-  <div>
-    {{resource.item.type}} {{resource.item.title}}
-    <!-- display total progress, last studied -->
-    <button (click)>start studying</button>
-    <!-- this should take them to the session page -->
-  </div>
-</div>
+<h3>your resources</h3>
+<mat-list>
+  <mat-list-item *ngFor="let resource of user.library.resources">
+    <div>
+      {{resource.item.type}} {{resource.item.title}}
+      <!-- display total progress, last studied -->
+      <button mat-raised-button routerLink="/study-session">start studying</button>
+      <!-- this should take them to the session page -->
+    </div>
+  </mat-list-item>
+</mat-list>

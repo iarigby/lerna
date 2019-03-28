@@ -1,10 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookSearchComponent } from './book-search.component';
+import { HttpClientModule} from '@angular/common/http';
 
 describe('BookSearchComponent', () => {
   let component: BookSearchComponent;
   let fixture: ComponentFixture<BookSearchComponent>;
+  
+  beforeEach(() => TestBed.configureTestingModule({
+    imports: [HttpClientModule]
+  }));
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
